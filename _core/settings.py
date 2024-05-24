@@ -38,7 +38,7 @@ ALLOWED_HOSTS = []
 RENDER_EXTERNAL_HOSTNAME = os.getenv("RENDER_EXTERNAL_HOSTNAME")
 
 if RENDER_EXTERNAL_HOSTNAME:
-    ALLOWED_HOSTS += RENDER_EXTERNAL_HOSTNAME
+    ALLOWED_HOSTS += [RENDER_EXTERNAL_HOSTNAME]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -105,13 +105,11 @@ DATABASES = {
 # postgresql://user:pass@host:port/database
 if DATABASE_URL:
     DEBUG = False
-    DATABASES["default"] = (
-        dj_database_url.config(
-            default=DATABASE_URL,
-            conn_max_age=600,
-            conn_health_checks=True,
-            ssl_require=True,
-        ),
+    DATABASES["default"] = dj_database_url.config(
+        default=DATABASE_URL,
+        conn_max_age=600,
+        conn_health_checks=True,
+        ssl_require=True,
     )
 
 
